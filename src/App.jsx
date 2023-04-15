@@ -27,6 +27,43 @@ function App() {
     });
   }, []);
 
+  const handleClickAccept = () => {
+    setLoading(true);
+    setAccepted((dogPrevious) => [dog, ...dogPrevious]); // Agrega el perro a la lista de perros accepted
+
+    getDog().then((data) => {
+      setDog({ name: generateName(6), img: data.message }); // Genera un nuevo perro
+      setLoading(false);
+    });
+  };
+
+  const handleClickReject = () => {
+    setLoading(true);
+    setRejected((dogPrevious) => [dog, ...dogPrevious]); // Agrega el perro a la lista de perros rejected
+
+    getDog().then((data) => {
+      setDog({ name: generateName(6), img: data.message }); // Genera un nuevo perro
+      setLoading(false);
+    });
+  };
+
+  const handleClickSwitchAccept = (dog) => {
+    //funcion para cambiar al perro a accepted
+    const newAccepted = rejected.filter((perro) => perro.name !== dog.name);
+    setRejected(newAccepted);
+    setAccepted((prev) => [dog, ...prev]);
+    setLoading(false);
+  };
+
+  const handleClickSwitchReject = (dog) => {
+    //funcion para cambiar al perro a rejected
+    const newRejected = accepted.filter((perro) => perro.name !== dog.name);
+    setAccepted(newRejected);
+    setRejected((prev) => [dog, ...prev]);
+    setLoading(false);
+  };
+
+
   const styles = {
     paperContainer: {
       height: 1356,
