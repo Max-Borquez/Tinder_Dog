@@ -6,13 +6,13 @@ Maximiliano Borquez
 <br>
 Camilo Figueroa
 
-#API de perros
+# API de perros
 https://dog.ceo/api/breeds/image/random
 
-#Librerias oocupadas
+# Librerias oocupadas
 
 -react
 -@mui/material
 
-#Version de Node
+# Version de Node
 18.16.0
