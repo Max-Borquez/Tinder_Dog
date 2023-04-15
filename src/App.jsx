@@ -13,6 +13,7 @@ import getDog from "./utils/getDog";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Tooltip from "@mui/material/Tooltip";
 import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
+import RepeatIcon from "@mui/icons-material/Repeat";
 import './App.css'
 
 
@@ -86,10 +87,47 @@ function App() {
 return (
   <Grid container spacing={10} style={styles.paperContainer}>
 
-    <Grid item md={4} sm={6}>
+    <Grid item md={4} sm={6} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
       <Typography align="center" variant="h5" color="black" backgroundColor="white">
         Rechazados
       </Typography>
+      {rejected.map((rechazado) => (
+        <Card
+          key={rechazado.name}
+          sx={{
+            backgroundColor: "white",
+            boxShadow: 1,
+            borderRadius: 2,
+            p: 2,
+            minWidth: 300,
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="140"
+            image={rechazado.img}
+            alt={rechazado.name}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {rechazado.name}
+            </Typography>
+            <CardActions>
+              <Tooltip title="Cambiar">
+                <span>
+                  <IconButton
+                    disabled={loading}
+                    color="info"
+                    onClick={() => handleClickSwitchAccept(rechazado)}
+                  >
+                    <RepeatIcon />
+                  </IconButton>
+                </span>
+              </Tooltip>
+            </CardActions>
+          </CardContent>
+        </Card>
+      ))}
     </Grid>
 
     <Grid item md={4} sm={12}>
