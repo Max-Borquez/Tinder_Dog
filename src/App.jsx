@@ -1,34 +1,42 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { Box, Grid } from '@mui/material';
 import './App.css'
 
-function App() {
-  const [count, setCount] = useState(0)
 
-  return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
+const generateName = (num) => {
+  const caracteres ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+  let name= ' ';
+  const charactersLength = caracteres.length;
+  for ( let i = 0; i < num; i++ ) {
+      name += caracteres.charAt(Math.floor(Math.random() * charactersLength));
+  }
+  return name;
+}
+
+function App() {
+  const [dog, setDog] = useState([{name:'', img:''}])
+  const [accepted, setAccepted] = useState([])
+  const [rejected, setRejected] = useState([])
+  const [loading, setLoading] = useState(true)
+
+return (
+  <Box>
+    <h1>Tinder Dog</h1>
+    <Grid container spacing={10}>
+
+      <Grid item md={4} sm={6}>
+
+      </Grid>
+
+      <Grid item md={4} xs={4}>
+
+      </Grid>
+
+      <Grid item md={4} sm={6} sx={{ overflowY: 'auto', maxHeight: '85vh' }}>
+
+      </Grid>
+    </Grid>
+  </Box>
   )
 }
 
