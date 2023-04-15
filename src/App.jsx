@@ -1,5 +1,6 @@
-import { useState } from 'react'
-import { Box, Grid } from '@mui/material';
+import { useEffect, useState } from "react";
+import { Grid, Typography } from '@mui/material';
+import getDog from "./utils/getDog";
 import './App.css'
 
 
@@ -19,24 +20,39 @@ function App() {
   const [rejected, setRejected] = useState([])
   const [loading, setLoading] = useState(true)
 
+  useEffect(() => {
+    getDog().then((data) => {
+      setDog({ name: generateName(6), img: data.message });
+      setLoading(false);
+    });
+  }, []);
+
+  const styles = {
+    paperContainer: {
+      height: 1356,
+      backgroundImage: `url(${"../public/Fondo.png"})`,
+    },
+  };
+
 return (
-  <Box>
-    <h1>Tinder Dog</h1>
-    <Grid container spacing={10}>
+  <Grid container spacing={10} style={styles.paperContainer}>
 
-      <Grid item md={4} sm={6}>
-
-      </Grid>
-
-      <Grid item md={4} xs={4}>
-
-      </Grid>
-
-      <Grid item md={4} sm={6} sx={{ overflowY: 'auto', maxHeight: '85vh' }}>
-
-      </Grid>
+    <Grid item md={4} sm={6}>
+      <Typography align="center" variant="h5" color="black" backgroundColor="white">
+        Rechazados
+      </Typography>
     </Grid>
-  </Box>
+
+    <Grid item md={4} xs={4}>
+
+    </Grid>
+
+    <Grid item md={4} sm={6}>
+      <Typography align="center" variant="h5" color="black" backgroundColor="white">
+        Aceptados
+      </Typography>
+    </Grid>
+  </Grid>
   )
 }
 
