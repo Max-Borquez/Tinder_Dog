@@ -197,10 +197,47 @@ return (
     </Grid>
 
 
-    <Grid item md={4} sm={6}>
+    <Grid item md={4} sm={6} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
       <Typography align="center" variant="h5" color="black" backgroundColor="white">
         Aceptados
       </Typography>
+      {accepted.map((aceptado) => (
+        <Card
+          key={aceptado.name}
+          sx={{
+            backgroundColor: "white",
+            boxShadow: 1,
+            borderRadius: 2,
+            p: 2,
+            minWidth: 100,
+          }}
+        >
+          <CardMedia
+            component="img"
+            height="140"
+            image={aceptado.img}
+            alt={aceptado.name}
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {aceptado.name}
+            </Typography>
+            <CardActions>
+              <Tooltip title="Cambiar">
+                <span>
+                  <IconButton
+                    disabled={loading}
+                    color="info"
+                    onClick={() => handleClickSwitchReject(aceptado)}
+                  >
+                    <RepeatIcon />
+                  </IconButton>
+                </span>
+              </Tooltip>
+            </CardActions>
+          </CardContent>
+        </Card>
+      ))}
     </Grid>
   </Grid>
   )
