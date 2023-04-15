@@ -13,8 +13,8 @@ https://dog.ceo/api/breeds/image/random
 
 # Librerias oocupadas
 
--react
--@mui/material
+- react 
+- @mui/material
 
 # Version de Node
 18.16.0
