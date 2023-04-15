@@ -1,6 +1,18 @@
 import { useEffect, useState } from "react";
-import { Grid, Typography } from '@mui/material';
+import {
+  Grid,
+  Card,
+  CardMedia,
+  CardContent,
+  Typography,
+  CardActions,
+  IconButton,
+  CircularProgress,
+} from "@mui/material";
 import getDog from "./utils/getDog";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import Tooltip from "@mui/material/Tooltip";
+import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
 import './App.css'
 
 
@@ -80,9 +92,72 @@ return (
       </Typography>
     </Grid>
 
-    <Grid item md={4} xs={4}>
-
+    <Grid item md={4} sm={12}>
+      {loading ? (
+        <Card>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              <CircularProgress />
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Tooltip title="Aceptar">
+              <span>
+                <IconButton
+                  disabled={loading}
+                  color="success"
+                  onClick={handleClickAccept}
+                >
+                  <FavoriteIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
+            <Tooltip title="Rechazar">
+              <span>
+                <IconButton
+                  disabled={loading}
+                  color="error"
+                  onClick={handleClickReject}
+                >
+                  <DoNotDisturbIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
+          </CardActions>
+        </Card>
+      ) : (
+        <Card>
+          <CardMedia
+            component="img"
+            height="300"
+            image={dog.img}
+            alt="DOGO"
+          />
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {dog.name}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Tooltip title="Aceptar">
+              <span>
+                <IconButton color="success" onClick={handleClickAccept}>
+                  <FavoriteIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
+            <Tooltip title="Rechazar">
+              <span>
+                <IconButton color="error" onClick={handleClickReject}>
+                  <DoNotDisturbIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
+          </CardActions>
+        </Card>
+      )}
     </Grid>
+
 
     <Grid item md={4} sm={6}>
       <Typography align="center" variant="h5" color="black" backgroundColor="white">
