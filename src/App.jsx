@@ -9,12 +9,19 @@ import {
   IconButton,
   CircularProgress,
 } from "@mui/material";
-import getDog from "./utils/getDog";
-import FavoriteIcon from "@mui/icons-material/Favorite";
+//import getDog from "./utils/getDog";
+import DoneIcon from '@mui/icons-material/Done';
 import Tooltip from "@mui/material/Tooltip";
-import DoNotDisturbIcon from "@mui/icons-material/DoNotDisturb";
-import RepeatIcon from "@mui/icons-material/Repeat";
+import ClearIcon from '@mui/icons-material/Clear';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import './App.css'
+
+const getDog = async () => {
+  const url = 'https://dog.ceo/api/breeds/image/random';
+  const res = await fetch(url);
+  return res.json();
+};
 
 
 const generateName = (num) => {
@@ -77,17 +84,10 @@ function App() {
   };
 
 
-  const styles = {
-    paperContainer: {
-      height: 1356,
-      backgroundImage: `url(${"../public/Fondo.png"})`,
-    },
-  };
-
 return (
-  <Grid container spacing={10} style={styles.paperContainer}>
+  <Grid container spacing={10} backgroundColor="#2CA4D8">
 
-    <Grid item md={4} sm={6} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
+    <Grid item md={4} sm={12}>
       <Typography align="center" variant="h5" color="black" backgroundColor="white">
         Rechazados
       </Typography>
@@ -99,7 +99,10 @@ return (
             boxShadow: 1,
             borderRadius: 2,
             p: 2,
-            minWidth: 300,
+            minWidth: 200,
+            minHeight: 200,
+            maxWidth: 200,
+            maxHeight: 200
           }}
         >
           <CardMedia
@@ -120,7 +123,7 @@ return (
                     color="info"
                     onClick={() => handleClickSwitchAccept(rechazado)}
                   >
-                    <RepeatIcon />
+                    <ArrowForwardIcon />
                   </IconButton>
                 </span>
               </Tooltip>
@@ -130,7 +133,7 @@ return (
       ))}
     </Grid>
 
-    <Grid item md={4} sm={12}>
+    <Grid item md={4} sm={6} sx={{ overflowY: 'auto', maxHeight: '85vh' }}>
       {loading ? (
         <Card>
           <CardContent>
@@ -146,7 +149,7 @@ return (
                   color="success"
                   onClick={handleClickAccept}
                 >
-                  <FavoriteIcon />
+                  <DoneIcon />
                 </IconButton>
               </span>
             </Tooltip>
@@ -157,7 +160,7 @@ return (
                   color="error"
                   onClick={handleClickReject}
                 >
-                  <DoNotDisturbIcon />
+                  <ClearIcon />
                 </IconButton>
               </span>
             </Tooltip>
@@ -169,7 +172,7 @@ return (
             component="img"
             height="300"
             image={dog.img}
-            alt="DOGO"
+            alt="DOG"
           />
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -180,14 +183,14 @@ return (
             <Tooltip title="Aceptar">
               <span>
                 <IconButton color="success" onClick={handleClickAccept}>
-                  <FavoriteIcon />
+                  <DoneIcon />
                 </IconButton>
               </span>
             </Tooltip>
             <Tooltip title="Rechazar">
               <span>
                 <IconButton color="error" onClick={handleClickReject}>
-                  <DoNotDisturbIcon />
+                  <ClearIcon />
                 </IconButton>
               </span>
             </Tooltip>
@@ -197,7 +200,7 @@ return (
     </Grid>
 
 
-    <Grid item md={4} sm={6} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
+    <Grid item md={4} sm={6} sx={{ overflowY: 'auto', maxHeight: '85vh' }}>
       <Typography align="center" variant="h5" color="black" backgroundColor="white">
         Aceptados
       </Typography>
@@ -230,7 +233,7 @@ return (
                     color="info"
                     onClick={() => handleClickSwitchReject(aceptado)}
                   >
-                    <RepeatIcon />
+                    <ArrowBackIcon />
                   </IconButton>
                 </span>
               </Tooltip>
