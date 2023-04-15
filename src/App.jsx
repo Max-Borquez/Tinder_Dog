@@ -9,7 +9,6 @@ import {
   IconButton,
   CircularProgress,
 } from "@mui/material";
-//import getDog from "./utils/getDog";
 import DoneIcon from '@mui/icons-material/Done';
 import Tooltip from "@mui/material/Tooltip";
 import ClearIcon from '@mui/icons-material/Clear';
@@ -49,26 +48,25 @@ function App() {
 
   const handleClickAccept = () => {
     setLoading(true);
-    setAccepted((dogPrevious) => [dog, ...dogPrevious]); // Agrega el perro a la lista de perros accepted
+    setAccepted((dogPrevious) => [dog, ...dogPrevious]);
 
     getDog().then((data) => {
-      setDog({ name: generateName(6), img: data.message }); // Genera un nuevo perro
+      setDog({ name: generateName(6), img: data.message });
       setLoading(false);
     });
   };
 
   const handleClickReject = () => {
     setLoading(true);
-    setRejected((dogPrevious) => [dog, ...dogPrevious]); // Agrega el perro a la lista de perros rejected
+    setRejected((dogPrevious) => [dog, ...dogPrevious]);
 
     getDog().then((data) => {
-      setDog({ name: generateName(6), img: data.message }); // Genera un nuevo perro
+      setDog({ name: generateName(6), img: data.message });
       setLoading(false);
     });
   };
 
   const handleClickSwitchAccept = (dog) => {
-    //funcion para cambiar al perro a accepted
     const newAccepted = rejected.filter((perro) => perro.name !== dog.name);
     setRejected(newAccepted);
     setAccepted((prev) => [dog, ...prev]);
@@ -76,7 +74,6 @@ function App() {
   };
 
   const handleClickSwitchReject = (dog) => {
-    //funcion para cambiar al perro a rejected
     const newRejected = accepted.filter((perro) => perro.name !== dog.name);
     setAccepted(newRejected);
     setRejected((prev) => [dog, ...prev]);
@@ -99,15 +96,13 @@ return (
             boxShadow: 1,
             borderRadius: 2,
             p: 2,
-            minWidth: 200,
-            minHeight: 200,
-            maxWidth: 200,
-            maxHeight: 200
+            minWidth: 300,
+            minHeight: 300
           }}
         >
           <CardMedia
             component="img"
-            height="140"
+            height="300"
             image={rechazado.img}
             alt={rechazado.name}
           />
@@ -217,7 +212,7 @@ return (
         >
           <CardMedia
             component="img"
-            height="140"
+            height="300"
             image={aceptado.img}
             alt={aceptado.name}
           />
