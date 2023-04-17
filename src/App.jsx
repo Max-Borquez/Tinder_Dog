@@ -7,37 +7,35 @@ import {
   Typography,
   CardActions,
   IconButton,
-  CircularProgress,
+  CircularProgress
 } from "@mui/material";
-import DoneIcon from '@mui/icons-material/Done';
+import DoneIcon from "@mui/icons-material/Done";
 import Tooltip from "@mui/material/Tooltip";
-import ClearIcon from '@mui/icons-material/Clear';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import './App.css'
+import ClearIcon from "@mui/icons-material/Clear";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 
 const getDog = async () => {
-  const url = 'https://dog.ceo/api/breeds/image/random';
+  const url = "https://dog.ceo/api/breeds/image/random";
   const res = await fetch(url);
   return res.json();
 };
 
-
 const generateName = (num) => {
-  const caracteres ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-  let name= ' ';
+  const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
+  let name = " ";
   const charactersLength = caracteres.length;
-  for ( let i = 0; i < num; i++ ) {
-      name += caracteres.charAt(Math.floor(Math.random() * charactersLength));
+  for (let i = 0; i < num; i++) {
+    name += caracteres.charAt(Math.floor(Math.random() * charactersLength));
   }
   return name;
-}
+};
 
 function App() {
-  const [dog, setDog] = useState([{name:'', img:''}])
-  const [accepted, setAccepted] = useState([])
-  const [rejected, setRejected] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [dog, setDog] = useState([{ name: "", img: "" }]);
+  const [accepted, setAccepted] = useState([]);
+  const [rejected, setRejected] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     getDog().then((data) => {
@@ -80,165 +78,184 @@ function App() {
     setLoading(false);
   };
 
-
-return (
-  <Grid container spacing={10} backgroundColor="#2CA4D8">
-
-    <Grid item md={4} sm={12}>
-      <Typography align="center" variant="h5" color="black" backgroundColor="white">
-        Rechazados
-      </Typography>
-      {rejected.map((rechazado) => (
-        <Card
-          key={rechazado.name}
-          sx={{
-            backgroundColor: "white",
-            boxShadow: 1,
-            borderRadius: 2,
-            p: 2,
-            minWidth: 300,
-            minHeight: 300
-          }}
+  return (
+    <Grid container spacing={10} style={{ backgroundColor: "#2CA4D8" }}>
+      <Grid item md={4} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
+        <Typography
+          align="center"
+          variant="h5"
+          color="black"
+          sx={{ backgroundColor: "white" }}
         >
-          <CardMedia
-            component="img"
-            height="300"
-            image={rechazado.img}
-            alt={rechazado.name}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {rechazado.name}
-            </Typography>
+          Rechazados
+        </Typography>
+        <br />
+        {rejected.map((rechazado) => (
+          <Card
+            key={rechazado.name}
+            sx={{
+              backgroundColor: "white",
+              boxShadow: 1,
+              borderRadius: 2,
+              p: 2,
+              minWidth: 100,
+            }}
+          >
+            <CardMedia
+              component="img"
+              height="300"
+              width="100%"
+              image={rechazado.img}
+              alt={rechazado.name}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {rechazado.name}
+              </Typography>
+              <CardActions>
+                <Tooltip title="Cambiar">
+                  <span>
+                    <IconButton
+                      disabled={loading}
+                      color="info"
+                      onClick={() => handleClickSwitchAccept(rechazado)}
+                    >
+                      <ArrowForwardIcon />
+                    </IconButton>
+                  </span>
+                </Tooltip>
+              </CardActions>
+            </CardContent>
+          </Card>
+        ))}
+      </Grid>
+
+      <Grid item md={4} sm={12}>
+        <Typography
+          align="center"
+          variant="h5"
+          color="black"
+          sx={{ backgroundColor: "white" }}
+        >
+          Nuevo Perro
+        </Typography>
+        <br />
+        {loading ? (
+          <Card>
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                <CircularProgress />
+              </Typography>
+            </CardContent>
             <CardActions>
-              <Tooltip title="Cambiar">
+              <Tooltip title="Aceptar">
                 <span>
                   <IconButton
                     disabled={loading}
-                    color="info"
-                    onClick={() => handleClickSwitchAccept(rechazado)}
+                    color="success"
+                    onClick={handleClickAccept}
                   >
-                    <ArrowForwardIcon />
+                    <DoneIcon />
+                  </IconButton>
+                </span>
+              </Tooltip>
+              <Tooltip title="Rechazar">
+                <span>
+                  <IconButton
+                    disabled={loading}
+                    color="error"
+                    onClick={handleClickReject}
+                  >
+                    <ClearIcon />
                   </IconButton>
                 </span>
               </Tooltip>
             </CardActions>
-          </CardContent>
-        </Card>
-      ))}
-    </Grid>
-
-    <Grid item md={4} sm={6} sx={{ overflowY: 'auto', maxHeight: '85vh' }}>
-      {loading ? (
-        <Card>
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              <CircularProgress />
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Tooltip title="Aceptar">
-              <span>
-                <IconButton
-                  disabled={loading}
-                  color="success"
-                  onClick={handleClickAccept}
-                >
-                  <DoneIcon />
-                </IconButton>
-              </span>
-            </Tooltip>
-            <Tooltip title="Rechazar">
-              <span>
-                <IconButton
-                  disabled={loading}
-                  color="error"
-                  onClick={handleClickReject}
-                >
-                  <ClearIcon />
-                </IconButton>
-              </span>
-            </Tooltip>
-          </CardActions>
-        </Card>
-      ) : (
-        <Card>
-          <CardMedia
-            component="img"
-            height="300"
-            image={dog.img}
-            alt="DOG"
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {dog.name}
-            </Typography>
-          </CardContent>
-          <CardActions>
-            <Tooltip title="Aceptar">
-              <span>
-                <IconButton color="success" onClick={handleClickAccept}>
-                  <DoneIcon />
-                </IconButton>
-              </span>
-            </Tooltip>
-            <Tooltip title="Rechazar">
-              <span>
-                <IconButton color="error" onClick={handleClickReject}>
-                  <ClearIcon />
-                </IconButton>
-              </span>
-            </Tooltip>
-          </CardActions>
-        </Card>
-      )}
-    </Grid>
-
-
-    <Grid item md={4} sm={6} sx={{ overflowY: 'auto', maxHeight: '85vh' }}>
-      <Typography align="center" variant="h5" color="black" backgroundColor="white">
-        Aceptados
-      </Typography>
-      {accepted.map((aceptado) => (
-        <Card
-          key={aceptado.name}
-          sx={{
-            backgroundColor: "white",
-            boxShadow: 1,
-            borderRadius: 2,
-            p: 2,
-            minWidth: 100,
-          }}
-        >
-          <CardMedia
-            component="img"
-            height="300"
-            image={aceptado.img}
-            alt={aceptado.name}
-          />
-          <CardContent>
-            <Typography gutterBottom variant="h5" component="div">
-              {aceptado.name}
-            </Typography>
+          </Card>
+        ) : (
+          <Card >
+            <CardMedia
+              component="img"
+              height="300"
+              width={"100%"}
+              image={dog.img}
+              alt="new_Dog"
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {dog.name}
+              </Typography>
+            </CardContent>
             <CardActions>
-              <Tooltip title="Cambiar">
+              <Tooltip title="Aceptar">
                 <span>
-                  <IconButton
-                    disabled={loading}
-                    color="info"
-                    onClick={() => handleClickSwitchReject(aceptado)}
-                  >
-                    <ArrowBackIcon />
+                  <IconButton color="success" onClick={handleClickAccept}>
+                    <DoneIcon />
+                  </IconButton>
+                </span>
+              </Tooltip>
+              <Tooltip title="Rechazar">
+                <span>
+                  <IconButton color="error" onClick={handleClickReject}>
+                    <ClearIcon />
                   </IconButton>
                 </span>
               </Tooltip>
             </CardActions>
-          </CardContent>
-        </Card>
-      ))}
+          </Card>
+        )}
+      </Grid>
+
+      <Grid item md={4} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
+        <Typography
+          align="center"
+          variant="h5"
+          color="black"
+          sx={{ backgroundColor: "white" }}
+        >
+          Aceptados
+        </Typography>
+        <br />
+        {accepted.map((aceptado) => (
+          <Card
+            key={aceptado.name}
+            sx={{
+              backgroundColor: "white",
+              boxShadow: 1,
+              borderRadius: 2,
+              p: 2,
+              minWidth: 100,
+            }}
+          >
+            <CardMedia
+              component="img"
+              height="300"
+              image={aceptado.img}
+              alt={aceptado.name}
+            />
+            <CardContent>
+              <Typography gutterBottom variant="h5" component="div">
+                {aceptado.name}
+              </Typography>
+              <CardActions>
+                <Tooltip title="Cambiar">
+                  <span>
+                    <IconButton
+                      disabled={loading}
+                      color="info"
+                      onClick={() => handleClickSwitchReject(aceptado)}
+                    >
+                      <ArrowBackIcon />
+                    </IconButton>
+                  </span>
+                </Tooltip>
+              </CardActions>
+            </CardContent>
+          </Card>
+        ))}
+      </Grid>
     </Grid>
-  </Grid>
-  )
+  );
 }
 
-export default App
+export default App;
