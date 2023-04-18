@@ -14,6 +14,7 @@ import Tooltip from "@mui/material/Tooltip";
 import ClearIcon from "@mui/icons-material/Clear";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import './App.css'
 
 const getDog = async () => {
   const url = "https://dog.ceo/api/breeds/image/random";
@@ -85,11 +86,10 @@ function App() {
           align="center"
           variant="h5"
           color="black"
-          sx={{ backgroundColor: "white" }}
+          sx={{ backgroundColor: "white", marginBottom: "20px" }}
         >
           Rechazados
         </Typography>
-        <br />
         {rejected.map((rechazado) => (
           <Card
             key={rechazado.name}
@@ -99,6 +99,7 @@ function App() {
               borderRadius: 2,
               p: 2,
               minWidth: 100,
+              marginBottom: "20px"
             }}
           >
             <CardMedia
@@ -131,6 +132,14 @@ function App() {
       </Grid>
 
       <Grid item md={4} sm={12}>
+      <Typography
+          align="center"
+          variant="h5"
+          color="black"
+          sx={{ backgroundColor: "white", marginBottom: "20px" }}
+        >
+          Perrito nuevo
+        </Typography>
         <Card>
           <CardContent>
             <Typography gutterBottom variant="h5" component="div">
@@ -184,11 +193,10 @@ function App() {
           align="center"
           variant="h5"
           color="black"
-          sx={{ backgroundColor: "white" }}
+          sx={{ backgroundColor: "white", marginBottom: "20px" }}
         >
           Aceptados
         </Typography>
-        <br />
         {accepted.map((aceptado) => (
           <Card
             key={aceptado.name}
@@ -198,6 +206,7 @@ function App() {
               borderRadius: 2,
               p: 2,
               minWidth: 100,
+              marginBottom: "20px"
             }}
           >
             <CardMedia
