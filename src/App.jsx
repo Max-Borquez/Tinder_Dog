@@ -7,7 +7,7 @@ import {
   Typography,
   CardActions,
   IconButton,
-  CircularProgress
+  CircularProgress,
 } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import Tooltip from "@mui/material/Tooltip";
@@ -131,79 +131,52 @@ function App() {
       </Grid>
 
       <Grid item md={4} sm={12}>
-        <Typography
-          align="center"
-          variant="h5"
-          color="black"
-          sx={{ backgroundColor: "white" }}
-        >
-          Nuevo Perro
-        </Typography>
-        <br />
-        {loading ? (
-          <Card>
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
+        <Card>
+          <CardContent>
+            <Typography gutterBottom variant="h5" component="div">
+              {loading ? (
                 <CircularProgress />
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Tooltip title="Aceptar">
-                <span>
-                  <IconButton
-                    disabled={loading}
-                    color="success"
-                    onClick={handleClickAccept}
-                  >
-                    <DoneIcon />
-                  </IconButton>
-                </span>
-              </Tooltip>
-              <Tooltip title="Rechazar">
-                <span>
-                  <IconButton
-                    disabled={loading}
-                    color="error"
-                    onClick={handleClickReject}
-                  >
-                    <ClearIcon />
-                  </IconButton>
-                </span>
-              </Tooltip>
-            </CardActions>
-          </Card>
-        ) : (
-          <Card >
-            <CardMedia
-              component="img"
-              height="300"
-              width={"100%"}
-              image={dog.img}
-              alt="new_Dog"
-            />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                {dog.name}
-              </Typography>
-            </CardContent>
-            <CardActions>
-              <Tooltip title="Aceptar">
-                <span>
-                  <IconButton color="success" onClick={handleClickAccept}>
-                    <DoneIcon />
-                  </IconButton>
-                </span>
-              </Tooltip>
-              <Tooltip title="Rechazar">
-                <span>
-                  <IconButton color="error" onClick={handleClickReject}>
-                    <ClearIcon />
-                  </IconButton>
-                </span>
-              </Tooltip>
-            </CardActions>
-          </Card>
-        )}
+              ) : (
+                <>
+                  <CardMedia
+                    component="img"
+                    height="300"
+                    width={"100%"}
+                    image={dog.img}
+                    alt="new_Dog"
+                  />
+                  <Typography gutterBottom variant="h5" component="div">
+                    {dog.name}
+                  </Typography>
+                </>
+              )}
+            </Typography>
+          </CardContent>
+          <CardActions>
+            <Tooltip title="Aceptar">
+              <span>
+                <IconButton
+                  disabled={loading}
+                  color="success"
+                  onClick={handleClickAccept}
+                >
+                  <DoneIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
+            <Tooltip title="Rechazar">
+              <span>
+                <IconButton
+                  disabled={loading}
+                  color="error"
+                  onClick={handleClickReject}
+                >
+                  <ClearIcon />
+                </IconButton>
+              </span>
+            </Tooltip>
+          </CardActions>
+        </Card>
       </Grid>
 
       <Grid item md={4} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
