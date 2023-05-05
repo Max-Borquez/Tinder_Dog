@@ -31,7 +31,7 @@ const getDog = async () => {
 
 const generateName = (num) => {
   const caracteres = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-  let name = " ";
+  let name = "";
   const charactersLength = caracteres.length;
   for (let i = 0; i < num; i++) {
     name += caracteres.charAt(Math.floor(Math.random() * charactersLength));
@@ -40,7 +40,7 @@ const generateName = (num) => {
 };
 
 function App() {
-  const [dog, setDog] = useState([{ name: "", img: "", desc: "" }]);
+  const [dog, setDog] = useState({ name: "", img: "", desc: "" });
   const [accepted, setAccepted] = useState([]);
   const [rejected, setRejected] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -100,8 +100,8 @@ function App() {
 
   return (
     <div style={styles}>
-      <Grid container spacing={10}>
-        <Grid item md={4} sm={12}>
+      <Grid container spacing={10} flexDirection={{ xs: "column-reverse", lg: "row" }} >
+        <Grid item lg={4} xs={12} sm={12}>
           <Typography
             align="center"
             variant="h5"
@@ -167,7 +167,7 @@ function App() {
           </Card>
         </Grid>
 
-        <Grid item md={4} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
+        <Grid item lg={4} xs={12}  sx={{ overflowY: "auto", maxHeight: "85vh" }}>
           <Typography
             align="center"
             variant="h5"
@@ -229,7 +229,7 @@ function App() {
           </div>
         </Grid>
 
-        <Grid item md={4} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
+        <Grid item lg={4} xs={12} sx={{ overflowY: "auto", maxHeight: "85vh" }}>
           <Typography
             align="center"
             variant="h5"
